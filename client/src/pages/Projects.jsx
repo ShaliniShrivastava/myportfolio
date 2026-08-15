@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import API from "../services/api";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
@@ -6,19 +6,18 @@ function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchProjects = async () => {
-    try {
-      const res = await API.get("/getAllProjects");
-
-      setProjects(res.data.projects);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await API.get("/getAllProjects");
+        setProjects(res.data.projects);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchProjects();
   }, []);
 
@@ -57,7 +56,7 @@ function Projects() {
               />
 
               <div className="p-8">
-                <div className="h-2 w-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mb-6"></div>
+                <div className="h-2 w-24 bg-linear-to-r from-cyan-400 to-blue-500 rounded-full mb-6"></div>
 
                 {/* Title */}
                 <h3 className="text-2xl font-bold mb-4 text-white">
